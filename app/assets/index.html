@@ -1,19 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="art-app">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SnapShop</title>
-
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <title>Carol Ogden Art</title>
     <link rel="stylesheet" href="/vendor.css">
     <link rel="stylesheet" href="/app.css">
-    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
-
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+    <header ng-include="'./views/header.html'"></header>
+    <div class="container">
+      <div ui-view></div>
+    </div>
+    <footer ng-include="'./views/footer.html'"></footer>
     <script src="/vendor.js"></script>
     <script src="/app.js"></script>
     <script>require('app');</script>

@@ -7,9 +7,9 @@ const { camelizeKeys } = require('humps');
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
-router.get('/api/cameras', (_req, res, next) => {
-  knex('cameras')
-    .orderBy('name')
+router.get('/api/works', (_req, res, next) => {
+  knex('works')
+    .orderBy('title')
     .then((rows) => {
       const cameras = camelizeKeys(rows);
 

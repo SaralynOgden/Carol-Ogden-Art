@@ -9,10 +9,10 @@ exports.up = function(knex) {
       .inTable('orders')
       .onDelete('CASCADE')
       .index();
-    table.integer('camera_id')
+    table.integer('work_id')
       .notNullable()
       .references('id')
-      .inTable('cameras')
+      .inTable('works')
       .onDelete('CASCADE')
       .index();
     table.integer('quantity')
