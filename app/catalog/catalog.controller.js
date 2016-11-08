@@ -1,10 +1,17 @@
 export default class CatalogCtrl {
   constructor(catalogSvc) {
-    catalogSvc.getWorks()
-      .then((works) => {
-        this.works = works;
-      })
-      .catch((err) => console.log(err));
+    this.catalogSvc = catalogSvc;
+  }
+
+  getGalleryFilters(work) {
+    return ((work.medium === this.catalogSvc.medium || this.catalogSvc.medium === 'any') &&
+            (work.price === this.catalogSvc.price || this.catalogSvc.price === 'any') &&
+            (work.dimensions === this.catalogSvc.dimensions || this.catalogSvc.dimensions === 'any') &&
+            (work.theme === this.catalogSvc.theme || this.catalogSvc.theme === 'any'));
+  }
+
+  getWorks() {
+    return this.catalogSvc.works;
   }
 };
 

@@ -1,20 +1,21 @@
 export default class DropdownsCtrl {
-  constructor(dropdownsSvc) {
+  constructor(dropdownsSvc, catalogSvc) {
     this.medium = dropdownsSvc.medium;
     this.price = dropdownsSvc.price;
     this.dimensions = dropdownsSvc.dimensions;
     this.theme = dropdownsSvc.theme;
+    this.catalogSvc = catalogSvc;
   }
 
   toggleOptionSelected(title, $index) {
-    this[title].menuItems[$index].selected = !this[title].menuItems[$index].selected;
-    if (title === 'price') {
-      for (let i = 0; i < this.price.menuItems.length; i++) {
-        if (i != $index) {
-          this.price.menuItems[i].selected = false;
-        }
+    const filterItems = this[title].menuItems;
+    filterItems[$index].selected = !filterItems[$index].selected;
+    for (let i = 0; i < this[title].menuItems.length; i++) {
+      if (i != $index) {
+        this[title].menuItems[i].selected = false;
       }
     }
+    this.catalogSvc.setGalleryFilters(filterItems[$index].selected, title, filterItems[$index].option)
   }
 
   toggleMenu($event, title) {
@@ -22,43 +23,6 @@ export default class DropdownsCtrl {
       this[title].dropdownSelected = !this[title].dropdownSelected;
     }
   }
-
-  //
-  // mediumTransition($event) {
-  //   if ($event.target === $event.currentTarget) {
-  //     this.mediumStatus = !this.mediumStatus;
-  //   }
-  // }
-  //
-  // priceTransition($event) {
-  //   if ($event.target === $event.currentTarget) {
-  //     this.priceStatus = !this.priceStatus;
-  //   }
-  // }
-  //
-  // dimensionTransition($event) {
-  //   if ($event.target === $event.currentTarget) {
-  //     this.dimensionStatus = !this.dimensionStatus;
-  //   }
-  // }
-  //
-  // themeTransition($event) {
-  //   if ($event.target === $event.currentTarget) {
-  //     this.themeStatus = !this.themeStatus;
-  //   }
-  // }
-  //
-  // changeColor($index, category) {
-  //   this[category][$index].style =
-  //       this[category][$index].style === 'white' ? '#91a243':'white';
-  //   if (category === 'prices') {
-  //     for (let i = 0; i < this.prices.length; i++) {
-  //       if (i != $index) {
-  //         this.prices[i].style = 'white';
-  //       }
-  //     }
-  //   }
-  // }
 };
 
-DropdownsCtrl.$inject = ['dropdownsService'];
+DropdownsCtrl.$inject = ['dropdownsService', 'catalogService'];

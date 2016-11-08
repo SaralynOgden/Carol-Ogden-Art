@@ -7,7 +7,6 @@
       <h2>filters</h2>
       <div ng-controller="DropdownsCtrl as dropdowns">
         <dropdown title="medium" menu="dropdowns.medium"></dropdown>
-        <dropdown title="price" menu="dropdowns.price"></dropdown>
         <dropdown title="dimensions" menu="dropdowns.dimensions"></dropdown>
         <dropdown title="theme" menu="dropdowns.theme"></dropdown>
       </div>
@@ -16,7 +15,7 @@
   <main>
     <div ng-controller="GalleryModalCtrl as galleryModal">
       <div id="thumbnail_container" ng-controller="CatalogCtrl as catalog">
-        <div class="thumbnail" ng-repeat="work in catalog.works">
+        <div class="thumbnail" ng-repeat="work in catalog.getWorks()" ng-show="catalog.getGalleryFilters(work)">
           <img class="work" src={{work.imgUrl}} alt={{work.title}} ng-click="galleryModal.makeModal(work, $index)"/>
         </div>
       </div>
@@ -26,7 +25,10 @@
           <img src={{galleryModal.work.imgUrl}}>
           <div id="gallery-modal-description">
             <h3>{{galleryModal.work.title}}</h3>
-            <p><span ng-show="galleryModal.dimensions">{{galleryModal.work.dimensions}}, </span>{{galleryModal.work.medium}}</p>
+            <p>
+              <span ng-show="galleryModal.work.dimensions">{{galleryModal.work.dimensions}}, </span>
+              {{galleryModal.work.type}}, {{galleryModal.work.medium}}
+            </p>
             <p>{{galleryModal.work.price | currency}}</p>
           </div>
           <button ng-click="galleryModal.addToCart(galleryModal.work)">purchase</button>

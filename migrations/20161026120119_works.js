@@ -7,10 +7,10 @@ exports.up = function(knex) {
     table.string('img_url').notNullable();
     table.enum('medium', ['pencil', 'acrylic', 'water_color', 'oil'])
          .defaultTo('');
+    table.enum('theme', ['people', 'small friends', 'places']).defaultTo('');
     table.float('price');
     table.string('dimensions');
-    table.boolean('print_available');
-    table.boolean('original_available');
+    table.enum('type', ['print', 'original']);
     table.timestamps(true, true);
   });
 };

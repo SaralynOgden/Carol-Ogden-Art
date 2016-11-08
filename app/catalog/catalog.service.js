@@ -1,17 +1,25 @@
 export default class CatalogService {
-  constructor($http) {
-    this.$http = $http;
-  }
-
-  getWorks() {
-    return this.$http.get('/api/works')
+  constructor($http, dropdownsSvc) {
+    this.medium = 'any';
+    this.price = 'any';
+    this.dimensions = 'any';
+    this.theme = 'any';
+    $http.get('/api/works')
       .then((works) => {
-        return works.data;
+        this.works = works.data;
       })
       .catch((err) => {
-        console.log(err);
+        throw err;
       })
+  }
+
+  setGalleryFilters(filter, title, option) {
+    if(filter) {
+      this[title] = option;
+    } else {
+      this[title] = 'any';
+    }
   }
 }
 
-CatalogService.$inject = ['$http'];
+CatalogService.$inject = ['$http', 'dropdownsService'];

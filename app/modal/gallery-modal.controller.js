@@ -4,11 +4,7 @@ export default class GalleryModalCtrl {
     this.work = {};
     this.index = -1;
     this.cartSvc = cartSvc;
-    catalogSvc.getWorks()
-      .then((works) => {
-        this.works = works;
-      })
-      .catch((err) => console.log(err));
+    this.catalogSvc = catalogSvc;
   }
 
   makeModal(work, index) {
@@ -24,13 +20,13 @@ export default class GalleryModalCtrl {
   }
 
   goBackwards() {
-    this.index = (this.index - 1) >= 0 ? (this.index - 1): this.works.length - 1;
-    this.work = this.works[this.index];
+    this.index = (this.index - 1) >= 0 ? (this.index - 1): this.catalogSvc.works.length - 1;
+    this.work = this.catalogSvc.works[this.index];
   }
 
   goForwards() {
-    this.index = (this.index + 1) % this.works.length;
-    this.work = this.works[this.index];
+    this.index = (this.index + 1) % this.catalogSvc.works.length;
+    this.work = this.catalogSvc.works[this.index];
   }
 
   keydown($event) {

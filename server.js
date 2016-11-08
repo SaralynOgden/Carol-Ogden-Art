@@ -42,12 +42,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 //   res.sendStatus(406);
 // });
 
-const cameras = require('./routes/cameras');
+const works = require('./routes/works');
 const users = require('./routes/users');
 const orders = require('./routes/orders');
 const token = require('./routes/token');
 
-app.use(cameras);
+app.use(works);
 app.use(users);
 app.use(orders);
 app.use(token);
