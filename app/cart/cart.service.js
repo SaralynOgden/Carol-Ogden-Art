@@ -1,16 +1,26 @@
 class CartService {
   constructor() {
-    this.items = {};
+    this.worksToPurchase = {};
+    this.numWorksInCart = 0;
+    this.subtotal = 0;
   }
 
-  addToOrder(itemToAdd) {
-    const { name, price } = itemToAdd;
+  addToCart(work) {
+    const { imgUrl, title, price } = work;
 
-    if (this.items.hasOwnProperty(name)) {
-      this.items[name] = { price, quantity: this.items[name].quantity + 1 };
+    if (this.worksToPurchase.hasOwnProperty(title)) {
+      this.worksToPurchase[title] =
+          { imgUrl, price, quantity: this.worksToPurchase[title].quantity + 1 };
     } else {
-      this.items[name] = { price, quantity: 1 };
+      this.worksToPurchase[title] = { imgUrl, price, quantity: 1 };
     }
+    this.numWorksInCart = this.numWorksInCart + 1;
+    this.updateTotals(work);
+  }
+
+  updateTotals(work) {
+    this.subtotal += work.price;
+    console.log(this.subtotal);
   }
 }
 

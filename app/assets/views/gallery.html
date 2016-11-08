@@ -5,52 +5,34 @@
     </div>
     <div id="sidebar" ng-show="sidebar.status" ng-style="{'background-color': sidebar.background}">
       <h2>filters</h2>
-      <form>
-        <select class="filter">
-          <option value="medium" selected="true" disabled="disabled">medium</option>
-          <option value="oil">oil</option>
-          <option value="pencil">pencil</option>
-          <option value="acrylic">acrylic</option>
-          <option value="water_color">water color</option>
-        </select>
-        <select class="filter">
-          <option value="price" selected="true" disabled="disabled">price</option>
-          <option value="less_than_15">$15 and under</option>
-          <option value="less_than_30">< $30</option>
-          <option value="mercedes">< $45</option>
-          <option value="audi">< $60</option>
-        </select>
-        <select class="filter">
-          <option value="volvo" selected="true" disabled="disabled">dimensions</option>
-          <option value="volvo">5x5</option>
-          <option value="saab">8x8</option>
-        </select>
-      </form>
+      <div ng-controller="DropdownsCtrl as dropdowns">
+        <dropdown title="medium" menu="dropdowns.medium"></dropdown>
+        <dropdown title="price" menu="dropdowns.price"></dropdown>
+        <dropdown title="dimensions" menu="dropdowns.dimensions"></dropdown>
+        <dropdown title="theme" menu="dropdowns.theme"></dropdown>
+      </div>
     </div>
   </div>
   <main>
-    <menu>
-      <button>Bio</button>
-      <img id="shopping-cart" src="./images/shopping-cart-icon.png">
-      <button>Contact</button>
-    </menu>
-    <div ng-controller="ModalCtrl as modal">
+    <div ng-controller="GalleryModalCtrl as galleryModal">
       <div id="thumbnail_container" ng-controller="CatalogCtrl as catalog">
         <div class="thumbnail" ng-repeat="work in catalog.works">
-          <img class="work" src={{work.imgUrl}} alt={{work.title}} ng-click="modal.makeModal(work)"/>
+          <img class="work" src={{work.imgUrl}} alt={{work.title}} ng-click="galleryModal.makeModal(work, $index)"/>
         </div>
       </div>
-      <div id="modal" ng-show="modal.status" ng-click="modal.closeModal($event);$event.stopPropagation()">
-        <div id="modal-content">
-          <img src={{modal.imgSrc}}>
-          <div id="modal-description">
-            <h3>{{modal.title}}</h3>
-            <p><span ng-show="modal.dimensions">{{modal.dimensions}}, </span>{{modal.medium}}</p>
-            <p>{{modal.price | currency}}</p>
+      <div id="gallery-modal" ng-show="galleryModal.status" ng-click="galleryModal.closeModal($event)" ng-keydown="galleryModal.keydown($event)">
+        <div id="gallery-modal-nav-back" ng-click="galleryModal.goBackwards();$event.stopPropagation()"><</div>
+        <div id="gallery-modal-content">
+          <img src={{galleryModal.work.imgUrl}}>
+          <div id="gallery-modal-description">
+            <h3>{{galleryModal.work.title}}</h3>
+            <p><span ng-show="galleryModal.dimensions">{{galleryModal.work.dimensions}}, </span>{{galleryModal.work.medium}}</p>
+            <p>{{galleryModal.work.price | currency}}</p>
           </div>
-          <button>purchase</button>
+          <button ng-click="galleryModal.addToCart(galleryModal.work)">purchase</button>
         </div>
-        <span id="modal-close" ng-click="modal.closeModal($event)">&times;</span>
+        <div id="gallery-modal-nav-forward" ng-click="galleryModal.goForwards();$event.stopPropagation()">></div>
+        <span id="gallery-modal-close" ng-click="gallery-modal.closeModal($event)">&times;</span>
       </div>
     </div>
   </main>

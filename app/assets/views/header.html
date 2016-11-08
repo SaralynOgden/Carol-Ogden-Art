@@ -1,1 +1,38 @@
-<img id="logo" src="./images/logo.jpg">
+<div id="menu" ng-controller="AccountModalCtrl as accountModal">
+  <button id="cart" ng-controller="CartCtrl as cart" ui-sref="checkout">
+    <span ng-show="cart.getTotalNumInCart()">{{cart.getTotalNumInCart()}}</span>
+    <img src="./images/shopping-cart-icon.png" ng-mouseover="show"/>
+  </button>
+  <button id="account" ng-click="accountModal.toggleIconModal()">
+    <img src="./images/account-icon.png"/>
+  </button>
+  <div id="account-modal" ng-show="accountModal.iconStatus">
+    <div id="account-modal-content">
+      <h3>{{account.name}}</h3>
+      <button>orders</button>
+      <button ng-click="accountModal.toggleRegister($event)">register</button>
+      <button ng-click="accountModal.toggleLogin($event)">login</button>
+    </div>
+  </div>
+  <div id="login-reg-modal" ng-show="accountModal.loginRegStatus" ng-click="accountModal.toggleLoginRegModal($event)">
+    <div id="login-reg-modal-content">
+      <form ng-show="accountModal.loginStatus">
+        <input type="text" placeholder="username">
+        <input type="text" placeholder="password">
+        <button>login</button>
+      </form>
+      <form ng-show="accountModal.registerStatus">
+        <input type="text" placeholder="username">
+        <input type="text" placeholder="password">
+        <input type="text" placeholder="confirm password">
+        <input type="text" placeholder="address line 1">
+        <input type="text" placeholder="address line 2">
+        <input type="text" placeholder="city">
+        <input type="text" placeholder="state">
+        <input type="number">
+        <button>register</button>
+      </form>
+    </div>
+  </div>
+</div>
+<img src="./images/logo.jpg" ui-sref="gallery">

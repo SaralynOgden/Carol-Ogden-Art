@@ -2,55 +2,185 @@
 	margin: 0;
 }
 
-body {
-	background-color: #FDFDFD;
-}
-
 header {
-	margin-top: 20px;
 	display: flex;
 	justify-content: center;
+	margin: 50px 0 20px 0;
+	cursor: pointer;
 }
 
-menu {
-	margin: 0 auto;
-	width: 20%;
-	display: flex;
-	justify-content: space-between;
+#menu {
+	position: fixed;
+	top: 20px;
+	right: 30px;
+	z-index: 2;
 }
 
-menu button {
-	margin: 0;
+#menu button {
 	background-color: transparent;
 	border: none;
-	font-size: 20px;
+	cursor: pointer;
 }
 
-#shopping-cart {
-	width: 50px;
+#account {
+	position:relative;
+	bottom: 3px;
+}
+
+#account img {
+	width: 30px;
+	height: 30px;
+}
+
+#account-modal {
+	position: fixed;
+	top: 70px;
 	height: 50px;
+	width: 100px;
+	text-align: center;
+}
+
+#account-modal button {
+	border-bottom: solid 1px;
+	width: 100%;
+	cursor: pointer;
+}
+
+#account-modal button:hover {
+	color: white;
+	letter-spacing: 1px;
+	background-color: #91a243;
+	border: none;
+}
+
+#login-reg-modal {
+	position: fixed;
+	align-items: center;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(248,248,248,0.7);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 2;
+}
+
+#login-reg-modal-content {
+	width: 30%;
+}
+
+#login-reg-modal-content form {
+	width: 100%;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	border: solid 2px;
+	background-color: white;
+}
+
+#login-reg-modal-content form input {
+	margin: 10px auto;
+	width: 80%;
+}
+
+#login-reg-modal-content form button {
+	margin: 0 auto;
+	width: 50%;
+	background-color: #91a243;
+	color: white;
+	letter-spacing: 1px;
+	padding: 10px;
+}
+
+#cart img {
+	width: 40px;
+	height: 40px;
+}
+
+#cart span {
+	font-size: 20px;
+	color: #91a243;
+	background-color: white;
+	position: relative;
+	bottom: 21px;
+	left: 33px;
+	z-index: 1;
 }
 
 #slide-button {
 	position: fixed;
 	font-size: 17px;
-	background-color: grey;
-	color: white;
+	color: black;
 	width: 15px;
+	background: white;
+	border: solid 2px black;
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
+	border-left: none;
 	padding: 10px;
+	z-index: 2;
+	cursor: pointer;
 }
 
 #sidebar {
 	border-right: solid 2px;
 	height: 100%;
-  width: 150px;
+  width: 15%;
   position: fixed;
 	top: 50px;
 	z-index: 1;
 	display: flex;
 	flex-direction: column;
+}
+
+#sidebar h2 {
+	margin-left: 10px;
+}
+
+.dropdown {
+	text-align: center;
+	margin: 20px auto 0px auto;
+	border: solid 2px black;
+	width: 80%;
+	padding: 10px 0 10px 0;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.dropdown ul {
+	padding-left: 0;
+}
+
+.dropdown ul:nth-child(2) {
+	border-top: solid 1px black;
+}
+
+.dropdown-option {
+	background-color: white;
+	color: black;
+	list-style: none;
+	border-bottom: solid 1px black;
+	padding: 4px 0 4px 0;
+}
+
+.dropdown-option:hover {
+	background: #ADD8E6;
+}
+
+.dropdownOptionSelected {
+	color: white;
+	letter-spacing: 1px;
+	background-color: #91a243;
+}
+
+.dropdownOptionSelected:hover {
+	color: white;
+	letter-spacing: 1px;
+	background-color: #91a243;
 }
 
 #etsy_logo, #pinterest_logo {
@@ -84,24 +214,7 @@ menu button {
 .clearfix:after { clear: both; }
 .clearfix { zoom: 1; }
 
-/* Home */
-
-.autoplay {
-  width: 75%;
-  margin: 50px auto 0 auto;
-}
-
-.slideshow_picture {
-  margin: 0 10px;
-  width: 100%;
-  height: auto;
-}
-
-.slideshow_picture:hover {
-  opacity: 0.9;
-}
-
-#modal {
+#gallery-modal {
   position: fixed;
 	align-items: center;
   top: 0;
@@ -114,21 +227,21 @@ menu button {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	z-index: 2;
 }
 
-#modal-content {
+#gallery-modal-content {
 	width: 35%;
 	padding: 10px;
 	background-color: white;
-	border: solid 2px grey;
-	z-index: 1;
+	border: solid 2px black;
 }
 
-#modal-content img {
+#gallery-modal-content img {
 	width: 100%;
 }
 
-#modal-content button {
+#gallery-modal-content button {
 	float: right;
 	border: none;
 	background-color: #91a243;
@@ -136,10 +249,37 @@ menu button {
 	padding: 10px;
 	letter-spacing: 1px;
 	border-radius: 5px;
+	cursor: pointer;
 }
 
-#modal-description p {
+#gallery-modal-description p {
 	margin-left: 10px;
+}
+
+#gallery-modal-nav-back, #gallery-modal-nav-forward {
+	width: 15px;
+	padding: 10px;
+	background-color: white;
+	color: black;
+	cursor: pointer;
+}
+
+#gallery-modal-nav-back {
+	border: solid 2px black;
+	border-right: none;
+	margin-right: -2px;
+	z-index: 3;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+#gallery-modal-nav-forward {
+	border: solid 2px black;
+	border-left: none;
+	margin-left: -2px;
+	z-index: 3;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
 
 @media screen and (max-width: 800px) {
@@ -182,6 +322,7 @@ menu button {
   -webkit-transform: translate(-50%,-50%);
       -ms-transform: translate(-50%,-50%);
           transform: translate(-50%,-50%);
+	cursor: pointer;
 }
 
 .thumbnail_container {
@@ -202,7 +343,7 @@ menu button {
 		margin: 1.36%;
   }
 
-	#modal-content {
+	#gallery-modal-content {
 		width:50%;
 	}
 }
@@ -218,7 +359,7 @@ menu button {
 		width: 100%;
 	}
 
-	#modal-content {
+	#gallery-modal-content {
 		width:60%;
 	}
 }
@@ -231,23 +372,70 @@ menu button {
   }
 }
 
-#modal-close {
-    position: absolute;
-    top: 47px;
-    right: 86px;
-    color: grey;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
+#gallery-modal-close {
+  position: absolute;
+  top: 47px;
+  right: 86px;
+  color: black;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+	cursor: pointer;
 }
 
-/*   About  */
-
-#profile-photo {
-  display: block;
-  margin: 60px auto;
+#order {
+	width: 57%;
+	margin-left: 10%;
+	float: left;
 }
 
-#info_paragraph {
-  text-align: center;
+th, td {
+  border-bottom: 1px solid #ddd;
+	padding-left: 8%;
+	padding-right: 4%;
+}
+
+#order table th:first-child,
+#order table td:first-child {
+	padding-left: 0;
+}
+
+#order table {
+	width: 100%;
+	text-align: center;
+	border-collapse: collapse;
+}
+
+td img {
+	width: 100%;
+}
+
+td input {
+	width: 20px;
+	text-align: right;
+}
+
+#checkout {
+	float: left;
+	padding: 20px;
+	margin-left: 3%;
+	width: 15%;
+	border: solid 1px;
+	border-radius: 5px;
+}
+
+#checkout p {
+	margin: 2px;
+}
+
+#checkout button {
+	float: right;
+	border: none;
+	background-color: #91a243;
+	color: white;
+	padding: 10px;
+	letter-spacing: 1px;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-top: 30px;
 }

@@ -1,0 +1,8 @@
+<div class="dropdown" ng-click="dropdowns.toggleMenu($event, dropdowns.title)">
+  <h4 ng-click="dropdowns.toggleMenu($event, dropdowns.title)">{{dropdowns.title}}</h4>
+  <ul ng-show="dropdowns.menu.dropdownSelected">
+    <li ng-repeat="item in dropdowns.menu.menuItems" class="dropdown-option" ng-class="{ dropdownOptionSelected: item.selected }" ng-click="dropdowns.toggleOptionSelected(dropdowns.title, $index)">
+      {{item.option}}
+    </li>
+  </ul>
+</div>
