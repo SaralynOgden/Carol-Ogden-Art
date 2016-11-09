@@ -12,5 +12,8 @@ export default class DropdownsService {
                   menuItems: [{option: 'people', selected: false},
                    {option: 'small friends', selected: false},
                    {option: 'places', selected: false}]};
+    this.type = { dropdownSelected: false,
+                 menuItems:[{option: 'print', selected: false},
+                  {option: 'original', selected: false}]};
   }
 };

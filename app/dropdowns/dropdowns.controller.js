@@ -1,9 +1,9 @@
 export default class DropdownsCtrl {
   constructor(dropdownsSvc, catalogSvc) {
     this.medium = dropdownsSvc.medium;
-    this.price = dropdownsSvc.price;
     this.dimensions = dropdownsSvc.dimensions;
     this.theme = dropdownsSvc.theme;
+    this.type = dropdownsSvc.type;
     this.catalogSvc = catalogSvc;
   }
 
