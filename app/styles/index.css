@@ -9,11 +9,14 @@ header {
 	cursor: pointer;
 }
 
+/* upper right-hand corner menu */
+
 #menu {
 	position: fixed;
 	top: 20px;
 	right: 30px;
 	z-index: 2;
+	display: flex;
 }
 
 #menu button {
@@ -22,36 +25,67 @@ header {
 	cursor: pointer;
 }
 
+#cart img {
+	width: 40px;
+	height: 40px;
+}
+
+#cart span {
+	font-size: 20px;
+	color: #91a243;
+	background-color: white;
+	position: relative;
+	bottom: 21px;
+	left: 33px;
+	z-index: 1;
+}
+
 #account {
 	position:relative;
 	bottom: 3px;
+	top: 0;
 }
 
 #account img {
+	margin-top: 7px;
 	width: 30px;
 	height: 30px;
 }
 
-#account-modal {
+#account svg {
 	position: fixed;
-	top: 70px;
-	height: 50px;
+	background-color: transparent;
+	top: 33px;
+	right: 45px;
+	width: 12px;
+	height: 12px;
+}
+
+#account svg circle {
+	fill: #91a243;
+}
+
+#user-menu {
+	position: fixed;
+	right: 25px;
 	width: 100px;
 	text-align: center;
 }
 
-#account-modal button {
+#user-menu button {
 	border-bottom: solid 1px;
 	width: 100%;
 	cursor: pointer;
 }
 
-#account-modal button:hover {
+#user-menu button:hover {
 	color: white;
 	letter-spacing: 1px;
 	background-color: #91a243;
 	border: none;
 }
+
+/* modals for logging in and registering */
 
 #login-reg-modal {
 	position: fixed;
@@ -94,21 +128,6 @@ header {
 	color: white;
 	letter-spacing: 1px;
 	padding: 10px;
-}
-
-#cart img {
-	width: 40px;
-	height: 40px;
-}
-
-#cart span {
-	font-size: 20px;
-	color: #91a243;
-	background-color: white;
-	position: relative;
-	bottom: 21px;
-	left: 33px;
-	z-index: 1;
 }
 
 #slide-button {
@@ -389,25 +408,38 @@ header {
 	float: left;
 }
 
+#review-orders {
+	width: 80%;
+	margin: 0 auto;
+}
+
+#review-orders caption {
+	font-size: 20px;
+	margin-top: 50px;
+}
+
 th, td {
   border-bottom: 1px solid #ddd;
 	padding-left: 8%;
 	padding-right: 8%;
 }
 
-#order table th:first-child,
-#order table td:first-child {
-	padding-left: 0;
+#order th:first-child,
+#order td:first-child,
+#review-orders th:first-child,
+#review-orders td:first-child {
+	padding-left: 0%;
 }
 
-#order table {
+#order table,
+#review-orders table {
 	width: 100%;
 	text-align: center;
 	border-collapse: collapse;
 }
 
 td img {
-	width: 100%;
+	max-width: 100%;
 }
 
 td input {
@@ -438,4 +470,8 @@ td input {
 	border-radius: 5px;
 	cursor: pointer;
 	margin-top: 30px;
+}
+
+#address-form {
+	margin: 30px 10px 0px 10px;
 }

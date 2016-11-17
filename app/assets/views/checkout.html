@@ -6,17 +6,24 @@
       <th>price</th>
       <th>quantity</th>
     </tr>
-    <tr ng-repeat="(title, property) in order.worksToPurchase">
+    <tr ng-repeat="(title, property) in order.getWorksToPurchase()">
       <td><img src={{property.imgUrl}} alt={{title}}></td>
       <td>{{title}}</td>
-      <td>{{property.price}}</td>
-      <td><input type="text" value={{property.quantity}} /></td>
+      <td>{{property.price | currency}}</td>
+      <td>{{property.quantity}}</td>
     </tr>
   </table>
 </div>
 <div id="checkout">
-  <p>Subtotal: {{order.subtotal | currency}}</p>
-  <p>Taxes: TBD</p>
-  <p>Total: TBD</p>
-  <button>Checkout</button>
+  <p>Subtotal: {{order.getSubtotal() | currency}}</p>
+  <p>Taxes: {{order.getTax() | currency}}</p>
+  <p>Total: {{order.getTotal() | currency}}</p>
+  <div id="address-form">
+    <input placeholder="address line 1" ng-model="order.addressLine1"/>
+    <input placeholder="address line 2" ng-model="order.addressLine2"/>
+    <input placeholder="city" ng-model="order.city" />
+    <input placeholder="state" ng-model="order.state"/>
+    <input placeholder="zip" ng-model="order.zip"/>
+  </div>
+  <button ng-click="order.submitOrder()">Checkout</button>
 </div>

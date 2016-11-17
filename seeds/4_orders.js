@@ -45,4 +45,4 @@ exports.seed = function(knex) {
         "SELECT setval('orders_id_seq', (SELECT MAX(id) FROM orders));"
       );
     });
-};
+}

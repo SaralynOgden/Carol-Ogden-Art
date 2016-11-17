@@ -28,51 +28,28 @@ router.get('/api/orders', authorize, (req, res, next) => {
     .where('user_id', req.token.userId)
     .orderBy('created_at', 'DESC')
     .then((rows) => {
-      const orders = camelizeKeys(rows);
-
-      res.send(orders);
-    })
-    .catch((err) => {
-      next(err);
-    });
-});
-
-router.get('/api/orders/:id', authorize, (req, res, next) => {
-  const id = Number.parseInt(req.params.id);
-
-  if (Number.isNaN(id)) {
-    return next();
-  }
-
-  let order;
-
-  knex('orders')
-    .where('id', id)
-    .where('user_id', req.token.userId)
-    .first()
-    .then((row) => {
-      if (!row) {
-        throw boom.create(404, 'Not Found');
+      const ordersInfo = camelizeKeys(rows);
+      const knexArray = [];
+      for (const orderInfo of ordersInfo) {
+        knexArray.push(knex('orders_works')
+                        .select('works.title', 'orders_works.created_at', 'works.img_url', 'works.price', 'orders_works.quantity')
+                        .innerJoin('works', 'orders_works.work_id', 'works.id')
+                        .where('order_id', orderInfo.id))
       }
 
-      order = camelizeKeys(row);
-
-      return knex('order_items')
-        .innerJoin('cameras', 'order_items.camera_id', 'cameras.id')
-        .where('order_id', order.id);
-    })
-    .then((items) => {
-      order.items = items;
-
-      res.send(order);
+      Promise.all(knexArray)
+        .then((results) => res.send(camelizeKeys(results)))
+        .catch((err) => {
+          throw err;
+        });
     })
     .catch((err) => {
       next(err);
     });
 });
 
-router.post('/orders', authorize, (req, res, next) => {
-  const { items, address1, address2, city, state, zip } = req.body;
+router.post('/api/orders', authorize, (req, res, next) => {
+  const { works, address1, address2, city, state, zip } = req.body;
 
   if (!address1 || !address1.trim()) {
     return next(boom.create(400, 'Address must not be blank'));
@@ -90,7 +67,7 @@ router.post('/orders', authorize, (req, res, next) => {
     return next(boom.create(400, 'Zip must not be blank'));
   }
 
-  const insertOrder = { address1, address2, city, state, zip };
+  const insertOrder = { userId: req.token.userId, address1, address2, city, state, zip };
   let order;
 
   knex('orders')
@@ -98,17 +75,17 @@ router.post('/orders', authorize, (req, res, next) => {
     .then((rows) => {
       order = camelizeKeys(rows[0]);
 
-      knex('order_items')
-        .insert(decamelizeKeys(items.map((item) => {
-          return {
-            orderId: order.id,
-            cameraId: item.cameraId,
-            quantity: item.quantity
-          };
-        })));
-    })
-    .then(() => {
-      res.send(order);
+      for (const work of works) {
+        work.orderId = order.id;
+        work.workId = work.id;
+        delete work.id;
+      }
+      knex('orders_works')
+        .insert(decamelizeKeys(works))
+        .then((result) => res.send(result))
+        .catch((err) => {
+          throw err;
+        });
     })
     .catch((err) => {
       next(err);

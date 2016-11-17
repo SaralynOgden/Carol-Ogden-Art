@@ -1,0 +1,19 @@
+<div ng-controller="OrdersCtrl as orders">
+  <div ng-repeat="order in orders.getOrders()">
+    <table id="review-orders">
+      <caption>{{order[0].createdAt | date}}</caption>
+      <tr>
+        <th></th>
+        <th>title</th>
+        <th>price</th>
+        <th>quantity</th>
+      </tr>
+      <tr ng-repeat="work in order">
+        <td><img src={{work.imgUrl}}></td>
+        <td>{{work.title}}</td>
+        <td>{{work.price}}</td>
+        <td>{{work.quantity}}</td>
+      </tr>
+    </table>
+  </div>
+</div>

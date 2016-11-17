@@ -1,36 +1,41 @@
-<div id="menu" ng-controller="AccountModalCtrl as accountModal">
+<div id="menu">
   <button id="cart" ng-controller="CartCtrl as cart" ui-sref="checkout">
     <span ng-show="cart.getTotalNumInCart()">{{cart.getTotalNumInCart()}}</span>
     <img src="./images/shopping-cart-icon.png" ng-mouseover="show"/>
   </button>
-  <button id="account" ng-click="accountModal.toggleIconModal()">
-    <img src="./images/account-icon.png"/>
-  </button>
-  <div id="account-modal" ng-show="accountModal.iconStatus">
-    <div id="account-modal-content">
-      <h3>{{account.name}}</h3>
-      <button>orders</button>
-      <button ng-click="accountModal.toggleRegister($event)">register</button>
-      <button ng-click="accountModal.toggleLogin($event)">login</button>
+  <div ng-controller="UserMenuCtrl as userMenu">
+    <button id="account" ng-click="userMenu.toggleMenu()">
+      <svg ng-show="userMenu.getLoginStatus()">
+        <circle cx="6" cy="6" r="5.5"></circle>
+      </svg>
+      <img src="./images/account-icon.png"/>
+    </button>
+    <div id="user-menu" ng-show="userMenu.menuStatus">
+      <button ui-sref="orders" ng-show="userMenu.getLoginStatus()">orders</button>
+      <button ng-controller="RegisterBtnCtrl as registerBtn" ng-hide="userMenu.getLoginStatus()" ng-click="registerBtn.toggleRegisterModal()">register</button>
+      <button ng-controller="LoginBtnCtrl as loginBtn" ng-hide="userMenu.getLoginStatus()" ng-click="loginBtn.toggleLoginModal()">login</button>
+      <button ng-controller="LogoutBtnCtrl as logoutBtn" ng-show="userMenu.getLoginStatus()" ng-click="logoutBtn.logout()">logout</button>
     </div>
   </div>
-  <div id="login-reg-modal" ng-show="accountModal.loginRegStatus" ng-click="accountModal.toggleLoginRegModal($event)">
+  <div ng-controller="LoginFormCtrl as loginForm" id="login-reg-modal" ng-show="loginForm.getModalStatus()" ng-click="loginForm.closeModal($event)">
     <div id="login-reg-modal-content">
-      <form ng-show="accountModal.loginStatus">
-        <input type="text" placeholder="username">
-        <input type="text" placeholder="password">
-        <button>login</button>
+      <form>
+        <input type="text" placeholder="email" ng-model="loginForm.email">
+        <input type="password" placeholder="password" ng-model="loginForm.password">
+        <input ng-show="accountModal.registerStatus" type="password" placeholder="confirm password">
+        <button ng-click="loginForm.login()">login</button>
       </form>
-      <form ng-show="accountModal.registerStatus">
-        <input type="text" placeholder="username">
-        <input type="text" placeholder="password">
-        <input type="text" placeholder="confirm password">
-        <input type="text" placeholder="address line 1">
-        <input type="text" placeholder="address line 2">
-        <input type="text" placeholder="city">
-        <input type="text" placeholder="state">
-        <input type="text" placeholder="zipcode">
-        <button>register</button>
+    </div>
+  </div>
+  <div ng-controller="RegisterFormCtrl as registerForm" id="login-reg-modal" ng-show="registerForm.getModalStatus()" ng-click="registerForm.closeModal($event)">
+    <div id="login-reg-modal-content">
+      <form>
+        <input type="text" placeholder="first name" ng-model="manageUsers.firstName">
+        <input type="text" placeholder="last name" ng-model="manageUsers.lastName">
+        <input type="text" placeholder="email" ng-model="registerForm.email">
+        <input type="password" placeholder="password" ng-model="registerForm.password">
+        <input type="password" placeholder="confirm password">
+        <button ng-click="registerForm.register()">register</button>
       </form>
     </div>
   </div>
