@@ -1,3 +1,3 @@
-# SnapShop - A Camera Shopping Cart
+http://carologdenart.herokuapp.com/
 
-## heroku -> http://carologdenart.herokuapp.com/
+This a website for an art shop written in Angular.
